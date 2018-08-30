@@ -1,2 +1,2 @@
 # Numerico
-This repository contains C++ files used in Numerical Lectures at Federal University of Rondonopolis
+This repository contains C++ files used in Numerical Methods I Lectures at Federal University of Rondonopolis
