@@ -1,4 +1,4 @@
-#include "Mat.h"
+#include "Matriz.h"
 #include<iomanip>
 #include<iostream>
 #include<cstdlib>
