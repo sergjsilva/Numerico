@@ -1,39 +1,48 @@
 #include<iostream>
+#include<cmath>
 
-typedef double(*Funcao)(double);
-double myfx(double x)
+
+using namespace std;
+
+typedef double (*Funcao)(double);
+
+double fx(double x)
 {
-    return x*x*exp(x);
+    return exp(x);   
 }
 
-double simpson(double a, double b,Funcao f)
+double Simpson(Funcao f, double a, double b, unsigned n)
 {
-    unsigned n=11;
-    int nSubIntervalos=n-1;
-    double h=(b-a)/nSubIntervalos;
-    double y[n];
-    double x=a;
-    y[0]=f(x);
-    double FIRST=y[0];
-    double somaOdd=0;
-    double somaEven=0;
-    for(unsigned i=1;i<n-1;i++)
+    double h=(b-a)/n;
+    double yo=f(a);
+    double yn=f(b);
+    double xo=a;
+    double x,soma;
+    soma=yo+yn;
+
+    for(int j=1;j<n;j++)
     {
-        x+=h;
-        y[i]=f(x);
-        if(i & 1)// odd
-            somaOdd+=y[i];
-        else //even
-        somaEven+=y[i];
-    }
-    x+=h;
-    double LAST=f(x);
-    return h/3*(FIRST+4*somaOdd+2*somaEven+LAST);
 
+        if(!(j&1)) // eh par
+        {
+            x=xo+j*h;
+            soma=soma+2*f(x);
+        }
+        else // ímpar
+        {
+            x=xo+j*h;
+            soma=soma+4*f(x);
+        }
+    }
+    soma=h/3*soma;
+    return soma;
 }
+
 
 int main()
 {
-  Funcao f=myfx;
-  std::cout<<simpson(0,1,f)<<std::endl;
+    double result=Simpson(fx,0,1,10);
+    cout.precision(10);
+    cout<<result<<endl;
+    return 0;
 }
